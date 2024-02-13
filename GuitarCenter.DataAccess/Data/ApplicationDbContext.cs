@@ -18,6 +18,7 @@ namespace GuitarCenterWeb.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -69,7 +70,6 @@ namespace GuitarCenterWeb.DataAccess.Data
                     ListPrice = 99,
                     Price = 90,
                     CategoryId = 1,
-                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -81,7 +81,6 @@ namespace GuitarCenterWeb.DataAccess.Data
                     ListPrice = 40,
                     Price = 30,
                     CategoryId = 1,
-					ImageUrl = ""
 				},
                 new Product
                 {
@@ -93,7 +92,6 @@ namespace GuitarCenterWeb.DataAccess.Data
                     ListPrice = 55,
                     Price = 50,
 					CategoryId = 1,
-					ImageUrl = ""
 				},
                 new Product
                 {
@@ -105,7 +103,6 @@ namespace GuitarCenterWeb.DataAccess.Data
                     ListPrice = 70,
                     Price = 65,
 					CategoryId = 2,
-					ImageUrl = ""
 				},
                 new Product
                 {
@@ -117,7 +114,6 @@ namespace GuitarCenterWeb.DataAccess.Data
                     ListPrice = 30,
                     Price = 27,
 					CategoryId = 2,
-					ImageUrl = ""
 				},
                 new Product
                 {
@@ -129,7 +125,6 @@ namespace GuitarCenterWeb.DataAccess.Data
                     ListPrice = 25,
                     Price = 23,
 					CategoryId = 3,
-					ImageUrl = ""
 				});
         }
     }

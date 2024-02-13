@@ -10,17 +10,16 @@ using System.Threading.Tasks;
 
 namespace GuitarCenter.DataAccess.Repository
 {
-	public class CategoryRepository : Repository<Category>, ICategoryRepository
-	{
+	public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+    {
 		private ApplicationDbContext _db;
-		public CategoryRepository(ApplicationDbContext db) :base(db)
+		public ApplicationUserRepository(ApplicationDbContext db) :base(db)
 		{
 			_db = db;
 		}
-
-		public void Update(Category obj)
+		public void Update(ApplicationUser obj)
 		{
-			_db.Categories.Update(obj); 
+			_db.ApplicationUsers.Update(obj);
 		}
 	}
 }

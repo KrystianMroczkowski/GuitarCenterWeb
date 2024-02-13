@@ -126,18 +126,14 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        $(document).ready(function()
-        {
-            $('#Input_Role').change(function()
-            {
+        $(document).ready(function () {
+            $('#Input_Role').change(function () {
                 var selection = $('#Input_Role Option:Selected').text();
-                if(selection=='Company')
-                {
+                if (selection == 'Company') {
                     $('#Input_CompanyId').show();
                 }
-                else
-                {
-                    $('Input_CompanyId').hide();
+                else {
+                    $('#Input_CompanyId').hide();
                 }
             })
         })

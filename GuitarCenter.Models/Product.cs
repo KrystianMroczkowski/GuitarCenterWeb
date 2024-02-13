@@ -23,7 +23,7 @@ namespace GuitarCenter.Models
         public string Brand { get; set; }
         [Required]
         [Display(Name = "List Price")]
-        [Range(1, 1000)]
+        [Range(1, 1000000)]
         public double ListPrice { get; set; }
         [Required]
         [Range(1, 1000000)]
@@ -32,7 +32,7 @@ namespace GuitarCenter.Models
         [ForeignKey("CategoryId")]
 		[ValidateNever]
 		public Category Category { get; set; }
-		[ValidateNever]
-		public string ImageUrl { get; set; }
+        [ValidateNever]
+        public List<ProductImage> ProductImages { get; set; }
     }
 }

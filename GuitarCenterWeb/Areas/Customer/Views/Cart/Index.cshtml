@@ -25,8 +25,15 @@
                     @foreach(var item in Model.ShoppingCartList){
                     <div class="row border-bottom pb-3">
                         <div class="d-none d-lg-block col-lg-1 text-center py-2">
-                            <img src=@item.Product.ImageUrl class="rounded" width="100%" />
-                        </div>
+                                @if (item.Product.ProductImages != null && item.Product.ProductImages.Count() > 0)
+                                {
+                                    <img src="@item.Product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top rounded w-100" />
+                                }
+                                else
+                                {
+                                    <img src="https://placehold.co/350x620/png" class="card-img-top rounded w-100" />
+                                }
+                        </div> 
                         <div class="col-12 col-lg-6 pt-md-3">
                             <h5 class="text-uppercase text-secondary"><strong>@item.Product.Name</strong></h5>
                             <p><small>@Html.Raw(item.Product.Description)</small></p>
@@ -73,9 +80,18 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2 offset-md-5">
-                        <a asp-action="summary" class="btn btn-primary border-0 bg-gradient w-100 py-2">Summary</a>
-                    </div>
+                    @if(Model.ShoppingCartList?.Any() == true)
+                    {
+                        <div class="col-md-2 offset-md-5">
+                            <a asp-action="summary" class="btn btn-primary border-0 bg-gradient w-100 py-2">Summary</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2 offset-md-5">
+                            <a asp-controller="home" asp-action="index" class="btn btn-primary border-0 bg-gradient w-100 py-2">Back to Shopping</a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

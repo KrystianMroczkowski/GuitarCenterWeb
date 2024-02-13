@@ -28,10 +28,11 @@ namespace GuitarCenter.DataAccess.Repository
 				objFromDb.Description = obj.Description;
 				objFromDb.CategoryId = obj.CategoryId;
 				objFromDb.Brand = obj.Brand;
-                if (obj.ImageUrl != null) 
-                {
-                    objFromDb.ImageUrl = obj.ImageUrl;
-                }
+                objFromDb.ProductImages = obj.ProductImages;
+                //if (obj.ImageUrl != null) 
+                //{
+                //    objFromDb.ImageUrl = obj.ImageUrl;
+                //}
 			}
         }
     }

@@ -5,6 +5,7 @@ using GuitarCenter.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Stripe;
 using Stripe.BillingPortal;
 using Stripe.Checkout;
@@ -36,9 +37,12 @@ namespace GuitarCenterWeb.Areas.Customer.Controllers
                 OrderHeader = new()
             };
 
+            IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
+
             foreach(var cart in ShoppingCartVM.ShoppingCartList)
             {
-                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Product.Price * cart.Count);
+                cart.Product.ProductImages = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
             }
             return View(ShoppingCartVM);
         }
@@ -64,7 +68,7 @@ namespace GuitarCenterWeb.Areas.Customer.Controllers
 
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
             {
-                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Product.Price * cart.Count);
             }
 
             return View(ShoppingCartVM);
@@ -85,7 +89,7 @@ namespace GuitarCenterWeb.Areas.Customer.Controllers
 
 			foreach (var cart in ShoppingCartVM.ShoppingCartList)
 			{
-				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Product.Price * cart.Count);
 			}
 
             if(applicationUser.CompanyId.GetValueOrDefault() == 0)
@@ -110,7 +114,7 @@ namespace GuitarCenterWeb.Areas.Customer.Controllers
                 {
                     ProductId = cart.ProductId,
                     OrderHeaderId = ShoppingCartVM.OrderHeader.Id,
-                    Price = cart.Price,
+                    Price = cart.Product.Price,
                     Count = cart.Count,
                 };
                 _unitOfWork.OrderDetail.Add(orderDetail);
@@ -136,7 +140,7 @@ namespace GuitarCenterWeb.Areas.Customer.Controllers
                     {
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            UnitAmount = (long)(item.Price * 100), // 10.50 => 1050
+                            UnitAmount = (long)(item.Product.Price * 100), // 10.50 => 1050
                             Currency = "pln",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
